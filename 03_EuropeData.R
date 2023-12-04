@@ -1,7 +1,7 @@
 library(terra)
 library(sf)
 library(tidyverse)
-library(rnaturalearth)
+# library(rnaturalearth)
 
 datadir <- "~/Documents/Calcereous/"
 outfolder <- "~/Documents/Calcereous/ProcessedData/Output/Europe/"
