@@ -64,6 +64,23 @@ Marchi, M., Castellanos-Acuna, D., Hamann, A., Wang, T., Ray, D. Menzel, A. 2020
 
 Using Mean Annual Precipitation (MAP) layer for 1961-1990 Normals
 
+## Layer legend
+
+|Code  |Explanation  |
+|-----:|:------------|
+|`1000` | lithology is either Carbonate or Mixed Sedimentary rocks|
+|`2000` | lithology is not Carbonate/Mixed |
+|`100`  | CaCO3 is > 0 and <= 200 |
+|`200`  | CaCO3 is > 200 |
+|`300`  | CaCO3 is == 0 |
+|`10`   | Annual precipitation is >= 400 and <= 1000 |
+|`20`   | Annual precipitation is > 1000 |
+|`30`   | Annual precipitation is < 400 |
+|`2`    | Livestock density is 0-25 LU per km2
+|`3`    | Livestock density is >25 per km2
+
+Calcereous grassland code is `1112`
+
 ## Limitations
 
 Border areas differ between layers because of differences in resolution and mapping detail. This could be calculated but generally, grasslands near coastline may be missing because of omission of one or more layers.
