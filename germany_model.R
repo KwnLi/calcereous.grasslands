@@ -85,9 +85,8 @@ lu <- (0.5*ctl) + (0.5*hrs) + (0.125*shp) + (0.125*got)
 
 lu.de <- lu %>% project(grass.mos, method="near") %>% mask(grass01.de)
 
-lu.rcl <- matrix(c(0,0,25,
-                   60,0,25,
-                   60,7000,
+lu.rcl <- matrix(c(0,0,25,60,
+                   0,25,60,7000,
                    1,2,3,4),ncol = 3)
 
 # convert units to per 1km (originally /10km) and reclassify
