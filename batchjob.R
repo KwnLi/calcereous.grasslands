@@ -1,6 +1,6 @@
 g <- as.numeric(commandArgs(trailingOnly = TRUE))
-library(tidyverse)
-library(terra)
+suppressMessages(library(tidyverse))
+suppressMessages(library(terra))
 
 source("./R/combine_layers.R")
 

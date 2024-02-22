@@ -1,6 +1,6 @@
 #!/bin/bash -l
 
-#SBATCH --partition=atlas
+#SBATCH --partition=bigmem
 #SBATCH --qos=normal
 #SBATCH --job-name=calcgrass
 #SBATCH --output=calcgrassjob
