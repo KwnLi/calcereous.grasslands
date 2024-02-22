@@ -1,6 +1,6 @@
 #!/bin/bash -l
 
-#SBATCH --partition=bigmem
+#SBATCH --partition=atlas
 #SBATCH --qos=normal
 #SBATCH --job-name=calcgrass
 #SBATCH --output=calcgrassjob
@@ -8,6 +8,7 @@
 #SBATCH --mail-user=kevin.li@usda.gov
 #SBATCH --mail-type=NONE
 #SBATCH --time=24:00:00
+#SBATCH --mem=300G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
