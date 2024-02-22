@@ -13,7 +13,7 @@ datadir <- "/90daydata/geoecoservices/calcereous/"
 grass.dir <- paste0(datadir,"outdata/grass/",eu.g)
 imperv.dir <- paste0(datadir,"outdata/imperv/",eu.g)
 prec.file <-  paste0(datadir,"outdata/meanPrecip.tif")
-caco3.file <- paste0(datadir,"outdata/caco3.tif")
+caco3.file <- paste0(datadir,"outdata/CaCO3.tif")
 litho.file <- paste0(datadir,"outdata/calcRock_eu_dis.gpkg")
 livstk.file <- paste0(datadir,"outdata/livestock_cats.tif")
 
