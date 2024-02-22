@@ -84,6 +84,6 @@ lcombine.sprc <- sprc(layercombine)
 calcgrass.sprc <- sprc(calcgrass)
 
 # mosaic
-merge(lcombine.sprc, filename = paste0(datadir, "outdata/final/layercombine/lcombine_",eu.g,".tif"))
-merge(calcgrass.sprc, filename = paste0(datadir, "outdata/final/calcgrass/calcgrass_",eu.g,".tif"))
+merge(lcombine.sprc, filename = paste0(datadir, "outdata/final/layercombine/countries/lcombine_",eu.g,".tif"))
+merge(calcgrass.sprc, filename = paste0(datadir, "outdata/final/calcgrass/countries/calcgrass_",eu.g,".tif"))
 
