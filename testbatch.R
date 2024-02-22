@@ -1,3 +1,3 @@
-g <- commandArgs(trailingOnly = TRUE)
+g <- as.numeric(commandArgs(trailingOnly = TRUE))
 
 print(g)

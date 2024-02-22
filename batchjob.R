@@ -1,4 +1,4 @@
-g <- commandArgs(trailingOnly = TRUE)
+g <- as.numeric(commandArgs(trailingOnly = TRUE))
 library(tidyverse)
 library(terra)
 
