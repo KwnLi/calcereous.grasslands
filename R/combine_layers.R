@@ -24,11 +24,11 @@ combine_layers <- function(
   # If the pixel is grassland (==1), and if the annual precipitation is < 400, assign code “30”
   # If the pixel is not grassland (!=1), keep Grassland_orig value the same (results in 0 or ‘no data’ signifiers)
 
-  grass.prec <- ifel(grass.lyr == 1,
-                     ifel(prec.lyr >= 400,
-                          ifel(prec.lyr <= 1000, 10, 20),
-                          30),
-                     grass.lyr)
+  grass.prec <- terra::ifel(grass.lyr == 1,
+                            terra::ifel(prec.lyr >= 400,
+                                        terra::ifel(prec.lyr <= 1000, 10, 20),
+                                        30),
+                            grass.lyr)
 
   # Combine grass and CaCO3:
   # If the pixel is grassland (==1), and if the CaCO3 is <= 200, assign code “100”
@@ -36,39 +36,39 @@ combine_layers <- function(
   # If the pixel is grassland (==1), and if the CaCO3 is == 0, assign code "300"
   # If the pixel is not grassland (!=1), keep Grassland_orig value the same (results in 0 or ‘no data’ signifiers)
 
-  grass.caco3 <- ifel(grass.lyr == 1,
-                      ifel(caco3.lyr > 0,
-                           ifel(caco3.lyr <= 200, 100, 200),
-                           300),
-                      grass.lyr)
+  grass.caco3 <- terra::ifel(grass.lyr == 1,
+                             terra::ifel(caco3.lyr > 0,
+                                         terra::ifel(caco3.lyr <= 200, 100, 200),
+                                         300),
+                             grass.lyr)
 
   # Combine grass and bedrock:
   # If the pixel is grassland (==1), and if the lithology is either Carbonate or Mixed Sedimentary rocks, assign code “1000”
   # If the pixel is grassland (==1), and if the lithology is not Carbonate/Mixed, assign code “2000”
   # If the pixel is not grassland (!=1), keep Grassland_orig value the same (results in 0 or ‘no data’ signifiers)
 
-  grass.litho <- ifel(grass.lyr == 1,
-                      ifel(litho.lyr == 101 | litho.lyr == 201,
-                           1000, 2000),
-                      grass.lyr)
+  grass.litho <- terra::ifel(grass.lyr == 1,
+                             terra::ifel(litho.lyr == 101 | litho.lyr == 201,
+                                         1000, 2000),
+                             grass.lyr)
 
   # Combine grass and livestock units:
   # If the pixel is grassland (==1), and if livestock density is 0-25 LU per km2 (category 1), assign code "2"
   # If the pixel is grassland (=1), and if livestock density is >25 per km2 (category 4), assign code "3"
 
-  grass.livestk <- ifel(grass.lyr == 1,
-                        ifel(livstk.lyr > 1, 3, 2),
-                        grass.lyr)
+  grass.livestk <- terra::ifel(grass.lyr == 1,
+                               terra::ifel(livstk.lyr > 1, 3, 2),
+                               grass.lyr)
 
   # combine layers
   # THIS IS WHERE MISSING LAYERS COULD BE SAVED AND CALCULATED
   grass.calc <- grass.prec + grass.caco3 + grass.livestk + grass.litho
 
   # remove zero
-  grass.calc2 <- subst(grass.calc, 0, NA)
+  grass.calc2 <- terra::subst(grass.calc, 0, NA)
 
   # remove imperv with a mask
-  imperv.0mask <- ifel(imperv.lyr == 0, 1, 0)
+  imperv.0mask <- terra::ifel(imperv.lyr == 0, 1, 0)
 
   grass.calc.noimperv <- grass.calc2 * imperv.0mask
 
