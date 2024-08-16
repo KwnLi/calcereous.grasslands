@@ -81,6 +81,13 @@ Using Mean Annual Precipitation (MAP) layer for 1961-1990 Normals
 
 Calcereous grassland code is `1112`
 
+## Impervious layer
+
+Areas with impervious cover are masked out of the grassland dataset. Impervious data is based on:
+
+European Environment Agency, “Impervious Built-up 2018 (raster 10 m), Europe, 3-yearly, Aug. 2020.” EEA geospatial data catalogue, Aug. 18, 2020. doi: https://doi.org/10.2909/3e412def-a4e6-4413-98bb-42b571afd15e.
+
+
 ## Limitations
 
 Border areas differ between layers because of differences in resolution and mapping detail. This could be calculated but generally, grasslands near coastline may be missing because of omission of one or more layers.
