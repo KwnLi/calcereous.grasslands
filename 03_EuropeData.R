@@ -25,16 +25,16 @@ eu_ext_proj <- eu_ext %>% project(from = crs(eu_grass), to = crs(lu))
 
 # convert units to per 1km (originally /10km)
 lu.eu <- (lu/100)  %>% crop(eu_ext_proj) %>%
-  project(crs(eu_grass), method = "near") %>% 
+  project(crs(eu_grass), method = "near") %>%
   crop(eu_ext)
 
 # # germany only
 # germany <- ne_countries(country="germany",scale = "large", returnclass = "sf") %>%
 #   st_transform(crs(lu.eu)) %>% vect()
-# 
+#
 # lu.de.origproj <- lu.eu %>% crop(germany, mask = TRUE, touches = FALSE)
-# 
-# 
+#
+#
 # # output Germany polygons to read into mowing analysis
 # writeRaster(lu.de.origproj, paste0(outfolder,"lu_de_origcrs.tif"))
 
@@ -58,11 +58,11 @@ lucat.eu <- lu.eu %>% classify(rcl = lu.rcl2, right=TRUE, include.lowest=TRUE)
 
 ##### Calcereous bedrock #####
 # calcrock.sf <- st_read(paste0(datadir,"CalcRock/LiMW_GIS 2015.gdb.zip"))
-# 
+#
 # eu_calcrock.vct <- calcrock.sf %>%
-#   mutate(code = recode(xx, sc = 101, sm = 201, .default = 999)) %>% 
+#   mutate(code = recode(xx, sc = 101, sm = 201, .default = 999)) %>%
 #   vect() %>% project(crs(eu_grass)) %>% crop(eu_ext)
-# 
+#
 # writeVector(eu_calcrock.vct, paste0(outfolder,"calcRock_eu.gpkg"))
 
 calcrock.vct <- vect(paste0(outfolder,"calcRock_eu.gpkg"))
@@ -71,7 +71,7 @@ calcrock.dis <- aggregate(calcrock.vct, by = "code")
 writeVector(calcrock.dis, "calcRock_eu_dis.gpkg")
 
 # eu_blank <- rast(calcrock.dis, res=100)
-# 
+#
 # eu_calcrock <- rasterize(calcrock.dis, eu_blank, field ="code")
 
 ##### Calcium carbonate soil #####

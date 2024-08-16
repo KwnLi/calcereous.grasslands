@@ -1,7 +1,7 @@
 # Calcereous grasslands in Europe
 Mapping calcereous grasslands
 
-## Layers
+## Data layers
 
 ### Grassland layer
 
@@ -91,5 +91,3 @@ European Environment Agency, “Impervious Built-up 2018 (raster 10 m), Europe, 
 ## Limitations
 
 Border areas differ between layers because of differences in resolution and mapping detail. This could be calculated but generally, grasslands near coastline may be missing because of omission of one or more layers.
-
-
