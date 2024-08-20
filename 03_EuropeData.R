@@ -2,8 +2,8 @@ library(terra)
 library(sf)
 library(tidyverse)
 
-datadir <- "~/Documents/Calcereous/"
-outfolder <- "~/Documents/Calcereous/ProcessedData/Europe/"
+datadir <- "~/mac_sync_pcloud/Calcereous/"
+outfolder <- "~/mac_sync_pcloud/Calcereous/ProcessedData/Europe/"
 
 # grassland
 eu_grass <- rast(paste0(datadir, "/GRA_2018_010m_eu_03035_v010/DATA/GRA_2018_010m_eu_03035_V1_0.tif"))
@@ -19,7 +19,8 @@ got <- rast(paste0(datadir,"Livestock/goats/5_Gt_2015_Da.tif"))
 hrs <- rast(paste0(datadir,"Livestock/horses/5_Ho_2015_Da.tif"))
 
 # livestock units
-lu <- (0.5*ctl) + (0.5*hrs) + (0.125*shp) + (0.125*got)
+# lu <- (0.5*ctl) + (0.5*hrs) + (0.125*shp) + (0.125*got)
+lu <- sum((0.5*ctl), (0.5*hrs), (0.125*shp), (0.125*got), na.rm = TRUE)
 
 eu_ext_proj <- eu_ext %>% project(from = crs(eu_grass), to = crs(lu))
 
@@ -50,8 +51,8 @@ lu.rcl2 <- matrix(c(0,0,25,60,
 lucat.eu <- lu.eu %>% classify(rcl = lu.rcl2, right=TRUE, include.lowest=TRUE)
 
 # project and write out
-# writeRaster(lucat.eu, paste0(outfolder,"livestock_cats.tif"))
-# writeRaster(lu.eu, paste0(outfolder,"livestock_perkm.tif"))
+writeRaster(lucat.eu, paste0(outfolder,"livestock_cats.tif"))
+writeRaster(lu.eu, paste0(outfolder,"livestock_perkm.tif"))
 
 # read back in
 # lucat.eu <- rast(paste0(outfolder,"livestock_perkm.tif"))
