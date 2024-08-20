@@ -8,7 +8,7 @@
 
 datadir <- "/90daydata/geoecoservices/calcereous/"
 
-eu <- read.csv("countries.csv")
+eu <- read.csv("missing_countries.csv")
 
 sel <- eu$a2
 
