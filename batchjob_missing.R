@@ -31,8 +31,8 @@ caco3 <- rast(caco3.file)
 litho <- vect(litho.file)
 livstk <- rast(livstk.file)
 
-dir.create(paste0(datadir, "outdata/final/layercombine/", eu.g))
-dir.create(paste0(datadir, "outdata/final/calcgrass/", eu.g))
+dir.create(paste0(datadir, "outdata/final/layercombine/", eu.g), recursive = TRUE)
+dir.create(paste0(datadir, "outdata/final/calcgrass/", eu.g), recursive = TRUE)
 
 layercombine <- list()
 calcgrass <- list()
