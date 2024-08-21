@@ -27,8 +27,8 @@ combine_layers <- function(
   grass.prec <- terra::ifel(grass.lyr == 1,
                             terra::ifel(prec.lyr >= 400,
                                         terra::ifel(prec.lyr <= 1000, 10, 20),
-                                        30),
-                            grass.lyr)
+                                        30, datatype = "INT2U"),
+                            grass.lyr, datatype = "INT2U")
 
   # Combine grass and CaCO3:
   # If the pixel is grassland (==1), and if the CaCO3 is <= 200, assign code “100”
@@ -39,8 +39,8 @@ combine_layers <- function(
   grass.caco3 <- terra::ifel(grass.lyr == 1,
                              terra::ifel(caco3.lyr > 0,
                                          terra::ifel(caco3.lyr <= 200, 100, 200),
-                                         300),
-                             grass.lyr)
+                                         300, datatype = "INT2U"),
+                             grass.lyr, datatype = "INT2U")
 
   # Combine grass and bedrock:
   # If the pixel is grassland (==1), and if the lithology is either Carbonate or Mixed Sedimentary rocks, assign code “1000”
@@ -49,16 +49,16 @@ combine_layers <- function(
 
   grass.litho <- terra::ifel(grass.lyr == 1,
                              terra::ifel(litho.lyr == 101 | litho.lyr == 201,
-                                         1000, 2000),
-                             grass.lyr)
+                                         1000, 2000, datatype = "INT2U"),
+                             grass.lyr, datatype = "INT2U")
 
   # Combine grass and livestock units:
   # If the pixel is grassland (==1), and if livestock density is 0-25 LU per km2 (category 1), assign code "2"
   # If the pixel is grassland (=1), and if livestock density is >25 per km2 (category 4), assign code "3"
 
   grass.livestk <- terra::ifel(grass.lyr == 1,
-                               terra::ifel(livstk.lyr > 1, 3, 2),
-                               grass.lyr)
+                               terra::ifel(livstk.lyr > 1, 3, 2, datatype = "INT2U"),
+                               grass.lyr, datatype = "INT2U")
 
   # combine layers
   # THIS IS WHERE MISSING LAYERS COULD BE SAVED AND CALCULATED
