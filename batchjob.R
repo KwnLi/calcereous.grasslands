@@ -103,11 +103,14 @@ lcombine.sprc <- sprc(layercombine)
 calcgrass.sprc <- sprc(calcgrass)
 
 # mosaic
-mosaicdir <-  paste0(datadir, "outdata/final/layercombine/countries/")
-if(!dir.exists(mosaicdir)){dir.create(mosaicdir, recursive = TRUE)}
+mosaicdir_layercombine <-  paste0(datadir, "outdata/final/layercombine/countries/")
+if(!dir.exists(mosaicdir_layercombine)){dir.create(mosaicdir_layercombine, recursive = TRUE)}
 
-merge(lcombine.sprc, filename = paste0(datadir, "outdata/final/layercombine/countries/lcombine_",eu.g,".tif"))
-merge(calcgrass.sprc, filename = paste0(datadir, "outdata/final/calcgrass/countries/calcgrass_",eu.g,".tif"))
+mosaicdir_calcgrass <-  paste0(datadir, "outdata/final/calcgrass/countries/")
+if(!dir.exists(mosaicdir_calcgrass)){dir.create(mosaicdir_calcgrass, recursive = TRUE)}
+
+merge(lcombine.sprc, filename = paste0(mosaicdir_layercombine, "lcombine_",eu.g,".tif"))
+merge(calcgrass.sprc, filename = paste0(mosaicdir_calcgrass, "calcgrass_",eu.g,".tif"))
 
 # write out tile tracking
 logdir <- paste0(datadir,"outdata/final/tilelog/")
