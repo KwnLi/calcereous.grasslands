@@ -89,7 +89,7 @@ for(i in 1:length(grass.files)){
                                              "/calcgrass_",mapid.i,".tif"))
 
     usedtiles[[usedtilesct]] <- data.frame(a2 = eu.g, grasstile = grass.files[i])
-    usedtiles <- usedtilesct + 1
+    usedtilesct <- usedtilesct + 1
   }else{
     missingtiles[[missingtilesct]] <- data.frame(a2 = eu.g, grasstile = grass.files[i])
     missintilesct <- missingtilesct + 1
