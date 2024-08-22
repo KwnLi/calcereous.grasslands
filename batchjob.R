@@ -10,8 +10,8 @@ eu <- read.csv("countries.csv")
 eu.g <- eu$a2[g]
 cat(eu.g)
 
-# datadir <- "/90daydata/geoecoservices/calcereous/"
-datadir <- "/Users/kevinli/Documents/Data/Calcereous/"
+datadir <- "/90daydata/geoecoservices/calcereous/"
+# datadir <- "/Users/kevinli/Documents/Data/Calcereous/"
 
 grass.dir <- paste0(datadir,"outdata/grass/",eu.g,"/")
 imperv.dir <- paste0(datadir,"outdata/imperv/",eu.g,"/")
