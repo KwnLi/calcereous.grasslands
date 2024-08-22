@@ -107,8 +107,8 @@ for(i in seq_along(grass.files)){
 # combine layers and output
 
 # merge
-lcombine.sprc <- sprc(layercombine)
-calcgrass.sprc <- sprc(calcgrass)
+lcombine.sprc <- sprc(layercombine[sapply(layercombine,\(x) !is.null(x))])
+calcgrass.sprc <- sprc(calcgrass[sapply(calcgrass,\(x) !is.null(x))])
 
 # mosaic
 mosaicdir_layercombine <-  paste0(datadir, "outdata/final/layercombine/countries/")
@@ -124,5 +124,4 @@ merge(calcgrass.sprc, filename = paste0(mosaicdir_calcgrass, "calcgrass_",eu.g,"
 logdir <- paste0(datadir,"outdata/final/tilelog/")
 if(!dir.exists(logdir)){dir.create(logdir, recursive = TRUE)}
 
-saveRDS(list(used=bind_rows(usedtiles), missing=bind_rows(missingtiles)),
-        file = paste0(logdir, eu.g, "_tiles.rds"))
+write.csv(output.df, file = paste0(logdir, eu.g, "_tiles.csv"), row.names = FALSE)
