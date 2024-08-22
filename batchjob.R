@@ -1,15 +1,17 @@
 g <- as.numeric(commandArgs(trailingOnly = TRUE))
 suppressMessages(library(tidyverse))
 suppressMessages(library(terra))
+suppressMessages(library(future))
+suppressMessages(library(foreach))
 
 source("./R/combine_layers.R")
 
 eu <- read.csv("countries.csv")
 eu.g <- eu$a2[g]
+cat(eu.g)
 
-
-datadir <- "/90daydata/geoecoservices/calcereous/"
-# datadir <- "/Users/kevinli/Documents/Data/Calcereous/"
+# datadir <- "/90daydata/geoecoservices/calcereous/"
+datadir <- "/Users/kevinli/Documents/Data/Calcereous/"
 
 grass.dir <- paste0(datadir,"outdata/grass/",eu.g,"/")
 imperv.dir <- paste0(datadir,"outdata/imperv/",eu.g,"/")
@@ -42,12 +44,14 @@ layercombine <- list()
 calcgrass <- list()
 
 # keep track of tiles
-missingtiles <- list()
-missingtilesct <- 1
-usedtiles <- list()
-usedtilesct <- 1
+output.df <- data.frame(grasstile = grass.files, within.ext = NA, error = NA)
 
-for(i in 1:length(grass.files)){
+# parallel processing
+# ncores <- future::availableCores()
+# plan("multisession", workers = ncores - 2)
+
+
+for(i in seq_along(grass.files)){
   grass.i <- rast(paste0(grass.dir,grass.files[i]))
   imperv.i <- rast(paste0(imperv.dir,imperv.files[i]))
 
@@ -55,44 +59,48 @@ for(i in 1:length(grass.files)){
 
   if(terra::relate(ext.i, min.ext, relation = "within")[1,1]){
 
-    prec.i <- prec %>% crop(ext.i+res(prec)[1]) %>%
-      resample(grass.i, method = "near") %>% crop(grass.i)
+    outdata <- tryCatch(
+      {
+        prec.i <- prec %>% crop(ext.i+res(prec)[1]) %>%
+          resample(grass.i, method = "near") %>% crop(grass.i)
 
-    caco3.i <- caco3 %>% crop(ext.i+res(caco3)[1]) %>%
-      resample(grass.i, method = "near") %>% crop(grass.i)
+        caco3.i <- caco3 %>% crop(ext.i+res(caco3)[1]) %>%
+          resample(grass.i, method = "near") %>% crop(grass.i)
 
-    litho.i <- terra::crop(x=litho,y=ext.i+res(grass.i)[1]) %>%
-      rasterize(grass.i, field="code") %>% crop(grass.i)
+        litho.i <- terra::crop(x=litho,y=ext.i+res(grass.i)[1]) %>%
+          rasterize(grass.i, field="code") %>% crop(grass.i)
 
-    livstk.i <- livstk %>% crop(ext.i+res(livstk)[1]) %>%
-      resample(grass.i, method = "near") %>% crop(grass.i)
+        livstk.i <- livstk %>% crop(ext.i+res(livstk)[1]) %>%
+          resample(grass.i, method = "near") %>% crop(grass.i)
 
-    layercombine[[i]] <- combine_layers(
-      grass.lyr = grass.i,
-      prec.lyr = prec.i,
-      caco3.lyr = caco3.i,
-      litho.lyr = litho.i,
-      livstk.lyr = livstk.i,
-      imperv.lyr = imperv.i
+        layercombine[[i]] <- combine_layers(
+          grass.lyr = grass.i,
+          prec.lyr = prec.i,
+          caco3.lyr = caco3.i,
+          litho.lyr = litho.i,
+          livstk.lyr = livstk.i,
+          imperv.lyr = imperv.i
+        )
+
+        mapid.i <- gsub(pattern = "(.*010m_)(.*)(_v010.tif)",
+                        replacement = "\\2",
+                        x = grass.files[i])
+
+        writeRaster(layercombine[[i]],
+                    filename=paste0(datadir, "outdata/final/layercombine/", eu.g,
+                                    "/lcombine_",mapid.i,".tif"))
+
+        calcgrass[[i]] <- ifel(layercombine[[i]] == 1112, 1, NA,
+                               filename = paste0(datadir,"outdata/final/calcgrass/", eu.g,
+                                                 "/calcgrass_",mapid.i,".tif"))
+        list(within.ext = "yes")
+      },
+      error = function(e) list(error = e$message)
     )
 
-    mapid.i <- gsub(pattern = "(.*010m_)(.*)(_v010.tif)",
-                    replacement = "\\2",
-                    x = grass.files[i])
-
-    writeRaster(layercombine[[i]],
-                filename=paste0(datadir, "outdata/final/layercombine/", eu.g,
-                                "/lcombine_",mapid.i,".tif"))
-
-    calcgrass[[i]] <- ifel(layercombine[[i]] == 1112, 1, NA,
-                           filename = paste0(datadir,"outdata/final/calcgrass/", eu.g,
-                                             "/calcgrass_",mapid.i,".tif"))
-
-    usedtiles[[usedtilesct]] <- data.frame(a2 = eu.g, grasstile = grass.files[i])
-    usedtilesct <- usedtilesct + 1
+    output.df[i,names(outdata)] <- outdata
   }else{
-    missingtiles[[missingtilesct]] <- data.frame(a2 = eu.g, grasstile = grass.files[i])
-    missintilesct <- missingtilesct + 1
+    output.df[i,"within.ext"] <- "no"
   }
 }
 

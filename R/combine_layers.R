@@ -26,7 +26,7 @@ combine_layers <- function(
 
   grass.prec <- terra::ifel(grass.lyr == 1,
                             terra::ifel(prec.lyr >= 400,
-                                        terra::ifel(prec.lyr <= 1000, 10, 20),
+                                        terra::ifel(prec.lyr <= 1000, 10, 20, datatype = "INT2U"),
                                         30, datatype = "INT2U"),
                             grass.lyr, datatype = "INT2U")
 
@@ -38,7 +38,7 @@ combine_layers <- function(
 
   grass.caco3 <- terra::ifel(grass.lyr == 1,
                              terra::ifel(caco3.lyr > 0,
-                                         terra::ifel(caco3.lyr <= 200, 100, 200),
+                                         terra::ifel(caco3.lyr <= 200, 100, 200, datatype = "INT2U"),
                                          300, datatype = "INT2U"),
                              grass.lyr, datatype = "INT2U")
 

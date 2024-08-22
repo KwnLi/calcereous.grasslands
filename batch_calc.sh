@@ -3,8 +3,8 @@
 #SBATCH --partition=atlas
 #SBATCH --qos=normal
 #SBATCH --job-name=calcgrass
-#SBATCH --output=/90daydata/geoecoservices/calcereous.grasslands/logs/calcgrass-%j.out
-#SBATCH --error=/90daydata/geoecoservices/calcereous.grasslands/logs/calcgrass-%j.err
+#SBATCH --output=/90daydata/geoecoservices/calcereous.grasslands/logs/calcgrass-%A_%a.out
+#SBATCH --error=/90daydata/geoecoservices/calcereous.grasslands/logs/calcgrass-%A_%a.err
 #SBATCH --account=geoecoservices
 #SBATCH --mail-user=kevin.li@usda.gov
 #SBATCH --mail-type=NONE
