@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+downloads/
+data/
+data-raw/LiMW_GIS 2015.gdb
