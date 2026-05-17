@@ -34,8 +34,8 @@ caco3 <- rast(caco3.file)
 litho <- vect(litho.file)
 livstk <- rast(livstk.file)
 
-min.ext <- ext(prec) %>% intersect(ext(caco3)) %>% intersect(ext(litho)) %>%
-  intersect(ext(livstk))
+min.ext <- ext(prec) %>% terra::intersect(ext(caco3)) %>% terra::intersect(ext(litho)) %>%
+  terra::intersect(ext(livstk))
 
 dir.create(paste0(datadir, "outdata/final/layercombine/", eu.g), recursive = TRUE)
 dir.create(paste0(datadir, "outdata/final/calcgrass/", eu.g), recursive = TRUE)

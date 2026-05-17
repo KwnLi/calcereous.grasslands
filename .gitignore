@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 downloads/
-data/
+data/big/
 data-raw/LiMW_GIS 2015.gdb
+.positai

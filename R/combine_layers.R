@@ -11,20 +11,33 @@
 #' @export
 #'
 combine_layers <- function(
-    grass.lyr=NULL,
+    grame.lyr=NULL,
     prec.lyr=NULL,
     caco3.lyr=NULL,
     litho.lyr=NULL,
     livstk.lyr=NULL,
-    imperv.lyr=NULL
+    imperv.lyr
 ){
+  # Convert mowing events to either one event or less (<=1) or greater than one mowing event (>1)
+  # If the pixel is grassland mowed 1 or less times, assign code 1
+  # If the pixel is grassland mowed more than 1 time, assign code 2
+  # Everything else is assigned 0
+
+  grass.lyr <- terra::ifel(grame.lyr <= 1,
+                           1,   # mowed one or fewer times
+                           terra::ifel(grame.lyr <= 4,
+                                       2,   # mowed more than once
+                                       grame.lyr - 250,   # not grassland, 3 = non-grassland or 5 = outside area
+                                       datatype = "INT2U"),
+                           datatype = "INT2U")
+
   # Combine grass and precipitation:
-  # If the pixel is grassland (==1), and if the annual precipitation is >= 400 and <= 1000, assign code “10”
-  # If the pixel is grassland (==1), and if the annual precipitation is > 1000, assign code “20”
-  # If the pixel is grassland (==1), and if the annual precipitation is < 400, assign code “30”
+  # If the pixel is grassland (<=2), and if the annual precipitation is >= 400 and <= 1000, assign code “10”
+  # If the pixel is grassland (<=2), and if the annual precipitation is > 1000, assign code “20”
+  # If the pixel is grassland (<=2), and if the annual precipitation is < 400, assign code “30”
   # If the pixel is not grassland (!=1), keep Grassland_orig value the same (results in 0 or ‘no data’ signifiers)
 
-  grass.prec <- terra::ifel(grass.lyr == 1,
+  grass.prec <- terra::ifel(grass.lyr <= 2,
                             terra::ifel(prec.lyr >= 400,
                                         terra::ifel(prec.lyr <= 1000, 10, 20, datatype = "INT2U"),
                                         30, datatype = "INT2U"),
@@ -54,7 +67,7 @@ combine_layers <- function(
 
   # Combine grass and livestock units:
   # If the pixel is grassland (==1), and if livestock density is 0-25 LU per km2 (category 1), assign code "2"
-  # If the pixel is grassland (=1), and if livestock density is >25 per km2 (category 4), assign code "3"
+  # If the pixel is grassland (==1), and if livestock density is >25 per km2 (category 4), assign code "3"
 
   grass.livestk <- terra::ifel(grass.lyr == 1,
                                terra::ifel(livstk.lyr > 1, 3, 2, datatype = "INT2U"),
@@ -67,11 +80,14 @@ combine_layers <- function(
   # remove zero
   grass.calc2 <- terra::subst(grass.calc, 0, NA)
 
-  # remove imperv with a mask
-  imperv.0mask <- terra::ifel(imperv.lyr == 0, 1, 0)
 
-  grass.calc.noimperv <- grass.calc2 * imperv.0mask
+  # optional: remove imperv with a mask
+  if(!missing(imperv.lyr)){
+    imperv.0mask <- terra::ifel(imperv.lyr == 0, 1, 0)
+
+    grass.calc2 <- grass.calc2 * imperv.0mask
+  }
 
   # return output
-  return(grass.calc.noimperv)
+  return(grass.calc2)
 }

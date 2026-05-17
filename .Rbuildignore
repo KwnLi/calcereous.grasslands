@@ -1,2 +1,5 @@
 ^calcereous\.grasslands\.Rproj$
 ^\.Rproj\.user$
+^\.positai$
+^\.claude$
+^data-raw$

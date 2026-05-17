@@ -2,8 +2,8 @@ library(terra)
 library(sf)
 library(tidyverse)
 
-datadir <- "~/mac_sync_pcloud/Calcereous/"
-outfolder <- "~/mac_sync_pcloud/Calcereous/ProcessedData/Europe/"
+datadir <- "/Users/kevinl/Documents/mac_sync_pcloud/Calcereous/"
+outfolder <- "/Users/kevinl/Documents/mac_sync_pcloud/Calcereous/ProcessedData/Europe/"
 
 # grassland
 eu_grass <- rast(paste0(datadir, "/GRA_2018_010m_eu_03035_v010/DATA/GRA_2018_010m_eu_03035_V1_0.tif"))
@@ -83,8 +83,7 @@ caco3_eu <- caco3 %>% project(crs(eu_grass), method="bilinear")
 writeRaster(caco3_eu, paste0(outfolder, "CaCO3.tif"))
 
 ##### Precipitation #####
-prec <- rast(paste0(datadir,"Normal_1961-1990_bioclim/MAP.asc"))
-crs(prec) <- 'PROJCS["Europe_Albers_Equal_Area_Conic",GEOGCS["GCS_European_1950",DATUM["D_European_1950",SPHEROID["International_1924",6378388.0,297.0]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Albers"],PARAMETER["False_Easting",0.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",15.0],PARAMETER["Standard_Parallel_1",43.0],PARAMETER["Standard_Parallel_2",62.0],PARAMETER["Latitude_Of_Origin",30.0],UNIT["Meter",1.0]]'
+prec <- rast(paste0(datadir,"Normal_1991_2020_bioclim_tif_1km/MAP.tif"))
 prec_eu <- prec %>% project(crs(eu_grass), method="bilinear")
 
-writeRaster(prec_eu, paste0(outfolder, "meanPrecip.tif"))
+writeRaster(prec_eu, paste0(outfolder, "meanPrecip_1991_2020.tif"))

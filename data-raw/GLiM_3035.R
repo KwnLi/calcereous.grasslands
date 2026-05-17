@@ -2,9 +2,12 @@
 
 unzip("downloads/LiMW_GIS 2015.gdb.zip", exdir = "data-raw")
 
-library(terra)
+library(sf)
+library(dplyr)
 
-litho <- vect("data-raw/LiMW_GIS 2015.gdb")
-lithoproj <- project(litho, "epsg:3035")
+litho <- st_read("data-raw/LiMW_GIS 2015.gdb")
+lithoproj <- litho |> mutate(calcbed = ifelse(xx %in% c("sm","sc"),1,0)) |>
+  dplyr::group_by(calcbed) |> dplyr::summarize(.groups = "drop") |>
+  st_transform(crs = 3035)
 
-writeVector(lithoproj, "data/GLiM_3035.gpkg")
+st_write(lithoproj, "data/calcbed_3035.gpkg")

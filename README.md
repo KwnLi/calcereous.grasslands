@@ -16,9 +16,9 @@ Provides at pan-European level in the spatial resolution of 10 m a basic land co
 
 <https://doi.org/10.2909/60639d5b-9164-4135-ae93-fb4132bb6d83>
 
-### ~~Livestock layer~~
+### Livestock layer
 
-***No longer used because mowing frequency data is available***
+***Livestock layer is back***
 
 From the Gridded Livestock of the World database (GLW v4).
 
@@ -66,7 +66,9 @@ Ballabio, C., Lugato, E., Fernández-Ugalde, O., Orgiazzi, A., Jones, A., Borrel
 
 Marchi, M., Castellanos-Acuna, D., Hamann, A., Wang, T., Ray, D. Menzel, A. 2020. ClimateEU, scale-free climate normals, historical time series, and future projections for Europe. Scientific Data 7: 428. doi: 10.1038/s41597-020-00763-0
 
-Using Mean Annual Precipitation (MAP) layer for 1961-1990 Normals
+Using Mean Annual Precipitation (MAP) layer 2000s (1991-2020)
+
+https://sites.ualberta.ca/~ahamann/data/climateeu.html
 
 ## Layer legend
 
