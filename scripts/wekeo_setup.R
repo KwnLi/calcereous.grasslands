@@ -41,7 +41,7 @@ matches_eu27 <- grep(eu27_pattern, matches_id)
 # download test
 matches_1 <- matches
 matches_1$results <- matches$results[matches_eu27]
-matches_1$download("downloads")
+matches_1$download("/scratch/kbl5733/downloads/")
 
 
 

@@ -1,23 +1,17 @@
-#!/bin/bash -l
-
-#SBATCH --partition=atlas
-#SBATCH --qos=normal
+#!/bin/bash
 #SBATCH --job-name=calcgrass
-#SBATCH --output=/90daydata/geoecoservices/calcereous.grasslands/logs/calcgrass-%A_%a.out
-#SBATCH --error=/90daydata/geoecoservices/calcereous.grasslands/logs/calcgrass-%A_%a.err
-#SBATCH --account=geoecoservices
-#SBATCH --mail-user=kevin.li@usda.gov
-#SBATCH --mail-type=NONE
+#SBATCH --account=hlc30_cr_default
+#SBATCH --partition=standard
+#SBATCH --output=/Users/kevinl/Documents/GitHub/calcereous.grasslands/logs/calcgrass-%A_%a.out
+#SBATCH --error=/Users/kevinl/Documents/GitHub/calcereous.grasslands/logs/calcgrass-%A_%a.err
 #SBATCH --time=24:00:00
 #SBATCH --mem=300G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
-#SBATCH --get-user-env              ### Import your user environment setup
-#SBATCH --array=1-28                ### Array index
+#SBATCH --array=1                ### Array index
 
-module purge
+module load anaconda
+source activate r-geo
 
-source /project/geoecoservices/R_packages/Rspatial.sh
-
-Rscript --vanilla batchjob.R ${SLURM_ARRAY_TASK_ID}
+Rscript --vanilla /Users/kevinl/Documents/GitHub/calcereous.grasslands/scripts/batch_grame.R ${SLURM_ARRAY_TASK_ID}

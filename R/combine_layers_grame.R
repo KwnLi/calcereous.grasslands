@@ -16,7 +16,8 @@ combine_layers_grame <- function(
     caco3.lyr=NULL,
     litho.lyr=NULL,
     livstk.lyr=NULL,
-    imperv.lyr
+    imperv.lyr,
+    ...
 ){
   # Convert mowing events to either one event or less (<=1) or greater than one mowing event (>1)
   # If the pixel is grassland mowed 1 or less times, assign code 1
@@ -82,8 +83,6 @@ combine_layers_grame <- function(
   grass.lyr2 <- terra::subst(grass.lyr, 5, NA)
 
   # combine layers
-  grass.calc <- grass.lyr2 + grass.prec + grass.caco3 + grass.litho + grass.livestk
+  terra::sum(grass.lyr2, grass.prec, grass.caco3, grass.litho, grass.livestk, ...)
 
-  # return output
-  return(grass.calc)
 }
