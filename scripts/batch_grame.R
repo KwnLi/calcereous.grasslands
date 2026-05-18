@@ -12,10 +12,15 @@ grame.files <- list.files(gramedir, pattern = ".zip$")
 grame.file.g <- grame.files[g]
 tile.g <- gsub(".*(E\\d+N\\d+).*", "\\1", grame.file.g)
 
+cat("Tile ID is: ", tile.g, "\n")
+
 # temp tile dir
-tempdir.g <- file.path(tempdir,tile.g)
+tempdir.g <- file.path(tempdir, tile.g)
+dir.create(tempdir.g, showWarnings = FALSE)
 
 unzip(file.path(gramedir, grame.file.g), exdir = tempdir.g)
+
+list.files(tempdir.g, full.names = TRUE)
 
 grame.file <- file.path(tempdir, gsub("zip$", "tif", grame.file.g))
 prec.file <-  file.path(datadir,"meanPrecip_1991_2020.tif")
