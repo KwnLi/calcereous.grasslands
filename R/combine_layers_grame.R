@@ -83,6 +83,6 @@ combine_layers_grame <- function(
   grass.lyr2 <- terra::subst(grass.lyr, 5, NA)
 
   # combine layers
-  terra::sum(grass.lyr2, grass.prec, grass.caco3, grass.litho, grass.livestk, ...)
+  sum(grass.lyr2, grass.prec, grass.caco3, grass.litho, grass.livestk, ...)
 
 }
