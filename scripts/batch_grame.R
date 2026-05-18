@@ -20,9 +20,12 @@ dir.create(tempdir.g, showWarnings = FALSE)
 
 unzip(file.path(gramedir, grame.file.g), exdir = tempdir.g)
 
-list.files(tempdir.g, full.names = TRUE)
+tile.g.files <- list.files(tempdir.g, full.names = TRUE)
+tile.g.tiffile <- tile.g.files[grep("tif$", tile.g.files)[1]]
 
-grame.file <- file.path(tempdir, gsub("zip$", "tif", grame.file.g))
+print(tile.g.tiffile)
+
+grame.file <- file.path(tile.g.tiffile)
 prec.file <-  file.path(datadir,"meanPrecip_1991_2020.tif")
 caco3.file <- file.path(datadir,"CaCO3.tif")
 litho.file <- file.path(datadir,"calcRock_eu_dis.gpkg")
