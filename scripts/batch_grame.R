@@ -8,7 +8,7 @@ datadir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/vardata"
 tempdir <- "/storage/home/kbl5733/scratch/tmp/grame"
 outdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out"
 
-grame.files <- list.files(gramdedir, pattern = ".zip$")
+grame.files <- list.files(gramedir, pattern = ".zip$")
 grame.file.g <- grame.files[g]
 tile.g <- gsub(".*(E\\d+N\\d+).*", "\\1", grame.file.g)
 

@@ -3,7 +3,7 @@
 #SBATCH --account=hlc30_cr_default
 #SBATCH --partition=standard
 #SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/calcgrass-%A_%a.out
-#SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/logs/calcgrass-%A_%a.err
+#SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/calcgrass-%A_%a.err
 #SBATCH --time=24:00:00
 #SBATCH --mem=300G
 #SBATCH --nodes=1
