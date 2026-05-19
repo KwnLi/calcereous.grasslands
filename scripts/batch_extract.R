@@ -6,7 +6,7 @@ suppressMessages(library(terra))
 grassdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/classgrass"
 outdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out"
 
-eu_grid_nuts2 <- sf::st_read("/storage/home/kbl5733/work/github/calcereous.grasslands/eu_grid_nuts2.gpkg")
+eu_grid_nuts2 <- sf::st_read("/storage/home/kbl5733/work/github/calcereous.grasslands/data/eu_grid_nuts2.gpkg")
 
 grass.files <- list.files(grassdir, pattern = ".tif$", full.names = TRUE)
 grass.file.g <- grass.files[g]
