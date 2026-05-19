@@ -26,8 +26,9 @@ log_entry <- data.frame(tile = tile.g, error = NA, CellCode = CellCode.g)
 
 tryCatch({
   tile.extract <- terra::extract(grass.g, eu_grid.g, fun=table)
-  print(tile.extract)
   tile.extract$NUTS_ID <- eu_grid.g$NUTS_ID
+  print(tile.extract)
+
   }, error = function(e) {
     log_entry$error <<- e$message
     }
