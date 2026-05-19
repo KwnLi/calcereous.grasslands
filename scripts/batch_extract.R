@@ -22,7 +22,7 @@ grass.g <- terra::rast(grass.file.g)
 eu_grid.g <- eu_grid_nuts2 |> dplyr::filter(CellCode == CellCode.g) |> terra::vect()
 
 # keep track of tiles
-log_entry <- data.frame(tile = tile.g, error = NA, CellCode = CellCode)
+log_entry <- data.frame(tile = tile.g, error = NA, CellCode = CellCode.g)
 
 tryCatch({
   tile.extract <- terra::extract(grass.g, eu_grid.g, fun=table, ID = FALSE)
