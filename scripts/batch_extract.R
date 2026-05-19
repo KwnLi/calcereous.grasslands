@@ -25,7 +25,7 @@ eu_grid.g <- eu_grid_nuts2 |> dplyr::filter(CellCode == CellCode.g) |> terra::ve
 log_entry <- data.frame(tile = tile.g, error = NA, CellCode = CellCode.g)
 
 tryCatch({
-  tile.extract <- terra::extract(grass.g, eu_grid.g, fun=table, ID = FALSE)
+  tile.extract <- terra::extract(grass.g, eu_grid.g, fun=table, ID = TRUE)
   print(tile.extract)
   tile.extract$NUTS_ID <- eu_grid.g$NUTS_ID
   }, error = function(e) {
