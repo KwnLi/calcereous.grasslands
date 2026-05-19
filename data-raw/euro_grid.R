@@ -8,12 +8,12 @@ caco3.file <- file.path(datadir,"CaCO3.tif")
 litho.file <- file.path(datadir,"calcRock_eu_dis.gpkg")
 livstk.file <- file.path(datadir,"livestock_cats.tif")
 
-prec.lyr <- rast(prec.file)
+prec <- rast(prec.file)
 caco3 <- rast(caco3.file)
-litho.lyr <- vect(litho.file)
+litho <- vect(litho.file)
 livstk <- rast(livstk.file)
 
-min.ext <- ext(prec) %>% terra::intersect(ext(caco3)) %>% terra::intersect(ext(litho)) %>%
+min.ext <- terra::ext(prec) %>% terra::intersect(ext(caco3)) %>% terra::intersect(ext(litho)) %>%
   terra::intersect(ext(livstk))
 
 euro_grid <- sf::st_read("data-raw/eea_v_3035_100_km_eea-ref-grid-europe_p_2011_v01_r00/Grid_ETRS89-LAEA_100K.shp")
@@ -23,7 +23,13 @@ eu_clip <- sf::st_crop(eu, min.ext)
 
 eu_grid <- euro_grid[eu_clip,]
 
+# add NUTs 2 info to eu 27 grid
+eu_nuts2 <- gisco_get_nuts(epsg = "3035", nuts_level = "2", spatialtype = "RG", resolution = "01")
+
+eu_grid_nuts2 <- sf::st_intersection(eu_grid, eu_nuts2)
+
 sf::st_write(eu, "data/eu.gpkg")
 sf::st_write(eu_clip, "data/eu_clip.gpkg")
 sf::st_write(eu_grid, "data/eu_grid.gpkg")
+sf::st_write(eu_grid_nuts2, "data/eu_grid_nuts2.gpkg")
 
