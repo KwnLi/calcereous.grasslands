@@ -1,15 +1,15 @@
 #!/bin/bash
 #SBATCH --job-name=extr_calc
-#SBATCH --account=hlc30_cr_default
+#SBATCH --account=open
 #SBATCH --partition=basic
-#SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/extr_calc-%A_%a.out
-#SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/extr_calc-%A_%a.err
+#SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/exp-%A_%a.out
+#SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/exp-%A_%a.err
 #SBATCH --time=3:00:00
-#SBATCH --mem=16G
+#SBATCH --mem=64G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
-#SBATCH --array=2-631%10              ### Array index
+#SBATCH --array=400              ### Array index
 
 module load anaconda
 source activate r-geo
