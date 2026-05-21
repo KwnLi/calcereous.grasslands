@@ -8,8 +8,6 @@ Mapping calcereous grasslands
 
 ## Methods
 
-1.  Combine high resolution grassland data and vector bedrock data. Convert bedrock data to 10m raster to match grassland data
-
 ### Data layers
 
 #### Grassland mowing events layer
