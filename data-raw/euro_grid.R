@@ -25,11 +25,14 @@ eu_grid <- euro_grid[eu_clip,]
 
 # add NUTs 2 info to eu 27 grid
 eu_nuts2 <- gisco_get_nuts(epsg = "3035", nuts_level = "2", spatialtype = "RG", resolution = "01")
+eu_nuts2_clip <- sf::st_crop(eu_nuts2, min.ext)
 
 eu_grid_nuts2 <- sf::st_intersection(eu_grid, eu_nuts2)
 
 sf::st_write(eu, "data/eu.gpkg")
 sf::st_write(eu_clip, "data/eu_clip.gpkg")
+sf::st_write(eu_nuts2, "data/eu_nuts2.gpkg")
+sf::st_write(eu_nuts2_clip, "data/eu_nuts2_clip.gpkg")
 sf::st_write(eu_grid, "data/eu_grid.gpkg")
 sf::st_write(eu_grid_nuts2, "data/eu_grid_nuts2.gpkg")
-
+saveRDS(min.ext, "data/eu_clip_ext.rds")
