@@ -1,24 +1,22 @@
 
+
 # Calcereous grasslands in Europe
 
 Mapping calcereous grasslands
 
 ## Methods
 
-1.  Combine high resolution grassland data and vector bedrock data.
-    Convert bedrock data to 10m raster to match grassland data
-
 ### Data layers
 
-#### Grassland layer
+#### Grassland mowing events layer
 
-Grassland 2018 (raster 10 m), Europe.
+Provides an estimate of grassland mowing events for the 2020 reference
+year at 10m resolution for European Union and EEA countries.
 
-Provides at pan-European level in the spatial resolution of 10 m a basic
-land cover classification with two thematic classes (grassland /
-non-grassland) for the 2018 reference year.
+Original layer is classified from 0-4 detected mowing events. This was
+reclassified to `<= 1` and `>1` mowing events.
 
-<https://doi.org/10.2909/60639d5b-9164-4135-ae93-fb4132bb6d83>
+<https://doi.org/10.2909/114e8cae-1cd7-4adc-8c5f-a04863fc6af9>
 
 #### Livestock layer
 
@@ -155,26 +153,6 @@ grassland code is `11111`. Other useful combos:
 
 Table of results by country:
 
-    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.2.1     ✔ readr     2.1.5
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.2
-    ## ✔ ggplot2   4.0.2     ✔ tibble    3.3.0
-    ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-    ## ✔ purrr     1.1.0     
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-
-    ## Reading layer `grassland_eu27' from data source 
-    ##   `/Users/kevinl/Documents/GitHub/calcereous.grasslands/out/grassland_eu27.gpkg' 
-    ##   using driver `GPKG'
-    ## Simple feature collection with 27 features and 18 fields
-    ## Geometry type: MULTIPOLYGON
-    ## Dimension:     XY
-    ## Bounding box:  xmin: 2637205 ymin: 1424440 xmax: 6526008 ymax: 5305047
-    ## Projected CRS: ETRS89-extended / LAEA Europe
-
 | Country | Calcereous grassland \[sq. km\] | Non-calcereous grassland \[sq. km\] | Grassland missing data \[sq. km\] |
 |:---|---:|---:|---:|
 | Austria | 1399 | 17633 | 283 |
@@ -204,6 +182,14 @@ Table of results by country:
 | Sweden | 5359 | 55829 | 3536 |
 | Slovenia | 69 | 3831 | 77 |
 | Slovakia | 2123 | 6875 | 108 |
+
+### EU 27 Country level results
+
+![](out/eu_cg.png)
+
+### EU NUTS-2 level results
+
+![](out/nuts2_cg.png)
 
 ### Limitations
 
