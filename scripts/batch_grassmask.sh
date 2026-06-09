@@ -4,7 +4,7 @@
 #SBATCH --partition=basic
 #SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskgrass-%A.out
 #SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskgrass-%A.err
-#SBATCH --time=1:00:00
+#SBATCH --time=01:00:00
 #SBATCH --mem=12G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
