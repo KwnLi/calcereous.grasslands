@@ -14,9 +14,20 @@ client$terms_and_conditions(term_id = 'all')
 
 # all_datasets <- client$datasets()
 
+# mowing events 2020
+
+# query_list <- list(
+#   dataset_id = "EO:EEA:DAT:HRL:GRA",
+#   productType = "Grassland Mowing Events",
+#   resolution = "10m",
+#   year = "2020"
+# )
+
+# grasslands 2020
+
 query_list <- list(
   dataset_id = "EO:EEA:DAT:HRL:GRA",
-  productType = "Grassland Mowing Events",
+  productType = "Grassland",
   resolution = "10m",
   year = "2020"
 )
