@@ -32,7 +32,7 @@ grass.g.files <- list.files(tempdir.g, full.names = TRUE)
 grass.g.tiffile <- grass.g.files[grep("tif$", grass.g.files)[1]]
 
 crast <- rast(paste0(classdir, "/", class.file.g))
-grast <- rast(grass.g.tiffile)
+grast <- rast(grass.g.tiffile) |> terra::as.int()
 
 # keep track of tiles
 log_entry <- data.frame(tile = tile.g, error = NA)
@@ -40,7 +40,7 @@ log_entry <- data.frame(tile = tile.g, error = NA)
 fname <- file.path(outdir,paste0("maskclagrass_",tile.g,".tif"))
 
 tryCatch({
-  class_mask <- terra::ifel(grast==1, crast, grast, filename=fname, datatype = "INT2U")
+  class_mask <- terra::ifel(grast==1, crast, grast, filename=fname, datatype = "INT4U", overwrite = TRUE)
 }, error = function(e) {
   log_entry$error <<- e$message
 }
