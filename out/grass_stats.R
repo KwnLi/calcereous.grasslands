@@ -13,6 +13,7 @@ eu_sum <- eu %>% summarize(eu_totalarea = sum(total_area),
     abiotic_calcgrass_pc_eutotalarea = 100*(calc_grass_totalarea + intensive_calc_grass_totalarea)/eu_totalarea,
     allgrass_pc_eutotalarea = 100*all_grass_totalarea/eu_totalarea,
     calcgrass_pc_grasstotalarea = 100*calc_grass_totalarea/all_grass_totalarea,
+    abiotic_calcgrass_pc_grasstotalarea = 100*(calc_grass_totalarea + intensive_calc_grass_totalarea)/all_grass_totalarea,
     missinggrass_pc_grasstotalarea = 100*grass_missing_data_totalarea/all_grass_totalarea,
   )
 

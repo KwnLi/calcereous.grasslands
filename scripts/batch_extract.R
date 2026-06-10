@@ -3,7 +3,7 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(sf))
 suppressMessages(library(terra))
 
-grassdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/classgrass"
+grassdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/maskgrass"
 outdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out"
 
 eu_grid_nuts2 <- sf::st_read("/storage/home/kbl5733/work/github/calcereous.grasslands/data/eu_grid_nuts2.gpkg")
@@ -35,9 +35,9 @@ tryCatch({
   )
 
 # --- write out ---
-extractdir <- file.path(outdir, "extract")
+extractdir <- file.path(outdir, "extractmask")
 dir.create(extractdir, recursive = TRUE, showWarnings = FALSE)
-write.csv(tile.extract, file.path(extractdir, paste0("classgrass_",tile.g,".csv")), row.names = FALSE)
+write.csv(tile.extract, file.path(extractdir, paste0("maskgrass_",tile.g,".csv")), row.names = FALSE)
 
 # --- per-tile log ---
 logdir <- file.path(extractdir, "tilelog")

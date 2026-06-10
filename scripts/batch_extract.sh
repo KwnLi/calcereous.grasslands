@@ -4,12 +4,12 @@
 #SBATCH --partition=basic
 #SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/exp-%A_%a.out
 #SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/exp-%A_%a.err
-#SBATCH --time=3:00:00
+#SBATCH --time=1:00:00
 #SBATCH --mem=64G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=2
-#SBATCH --array=1-631              ### Array index
+#SBATCH --array=1              ### Array index
 
 module load anaconda
 source activate r-geo
