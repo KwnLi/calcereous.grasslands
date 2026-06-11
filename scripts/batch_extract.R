@@ -6,8 +6,6 @@ suppressMessages(library(terra))
 grassdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/maskgrass"
 outdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out"
 
-eu_grid_nuts2 <- sf::st_read("/storage/home/kbl5733/work/github/calcereous.grasslands/data/eu_grid_nuts2.gpkg")
-
 grass.files <- list.files(grassdir, pattern = ".tif$", full.names = TRUE)
 grass.file.g <- grass.files[g]
 tile.g <- gsub(".*(E\\d+N\\d+).*", "\\1", grass.file.g)
@@ -18,6 +16,18 @@ CellCode.g = paste0("100km",tile.g)
 cat("Tile ID is:", tile.g, "\n")
 
 ##### conduct the zonal stat #####
+extractdir <- file.path(outdir, "extractmask")
+if(!dir.exists(extractdir)) {dir.create(extractdir, recursive = TRUE, showWarnings = FALSE)}
+
+fname <- file.path(extractdir, paste0("maskgrass_",tile.g,".csv"))
+
+if(file.exists(fname)){
+  cat("Output already exists for tile:", tile.g, "-- skipping\n")
+  quit(save = "no")
+}
+
+eu_grid_nuts2 <- sf::st_read("/storage/home/kbl5733/work/github/calcereous.grasslands/data/eu_grid_nuts2.gpkg")
+
 grass.g <- terra::rast(grass.file.g)
 eu_grid.g <- eu_grid_nuts2 |> dplyr::filter(CellCode == CellCode.g) |> terra::vect()
 
@@ -35,9 +45,7 @@ tryCatch({
   )
 
 # --- write out ---
-extractdir <- file.path(outdir, "extractmask")
-dir.create(extractdir, recursive = TRUE, showWarnings = FALSE)
-write.csv(tile.extract, file.path(extractdir, paste0("maskgrass_",tile.g,".csv")), row.names = FALSE)
+write.csv(tile.extract, fname, row.names = FALSE)
 
 # --- per-tile log ---
 logdir <- file.path(extractdir, "tilelog")
