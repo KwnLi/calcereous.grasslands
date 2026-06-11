@@ -2,6 +2,7 @@ g <- as.numeric(commandArgs(trailingOnly = TRUE))
 suppressMessages(library(tidyverse))
 suppressMessages(library(sf))
 suppressMessages(library(terra))
+terra::setGDALconfig("GTIFF_SRS_SOURCE", "EPSG")
 
 grassdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/maskgrass"
 outdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out"
