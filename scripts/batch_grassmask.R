@@ -40,7 +40,8 @@ log_entry <- data.frame(tile = tile.g, error = NA)
 fname <- file.path(outdir,paste0("maskclagrass_",tile.g,".tif"))
 
 tryCatch({
-  class_mask <- terra::ifel(grast==1, crast, grast, filename=fname, datatype = "INT4U", overwrite = TRUE)
+  class_mask <- terra::ifel(grast==1, crast, grast)
+  terra::writeRaster(class_mask, filename=fname, datatype = "INT4U", overwrite = TRUE)
 }, error = function(e) {
   log_entry$error <<- e$message
 }
