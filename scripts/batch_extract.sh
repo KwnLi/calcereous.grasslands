@@ -5,7 +5,7 @@
 #SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/extr_%A.out
 #SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/extr_%A.err
 #SBATCH --time=1:00:00
-#SBATCH --mem=16G
+#SBATCH --mem=64G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
