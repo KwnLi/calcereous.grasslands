@@ -109,24 +109,25 @@ Europe, 3-yearly, Aug. 2020.” EEA geospatial data catalogue, Aug. 18,
 
 |    Code | Explanation                                              |
 |--------:|:---------------------------------------------------------|
-| `90000` | Outside of livestock density mapping area                |
-| `30000` | Livestock density is \>25 per km2                        |
-| `10000` | Livestock density is 0-25 LU per km2                     |
-|  `9000` | Outside of lithology mapping area                        |
-|  `2000` | lithology is not Carbonate/Mixed                         |
-|  `1000` | lithology is either Carbonate or Mixed Sedimentary rocks |
-|   `900` | Outside of CaCO3 mapping area                            |
-|   `300` | CaCO3 is == 0                                            |
-|   `200` | CaCO3 is \> 200                                          |
-|   `100` | CaCO3 is \> 0 and \<= 200                                |
-|    `90` | Outside of precipitation mapping area                    |
-|    `30` | Annual precipitation is \< 400                           |
-|    `20` | Annual precipitation is \> 1000                          |
-|    `10` | Annual precipitation is \>= 400 and \<= 1000             |
-|     `5` | Outside of grassland mapping area (e.g. water)           |
-|     `3` | Non-grassland                                            |
-|     `2` | Grassland mowing events \> 1                             |
-|     `1` | Grassland mowing events \<= 1                            |
+| `9****` | Outside of livestock density mapping area                |
+| `3****` | Livestock density is \>25 per km2                        |
+| `1****` | Livestock density is 0-25 LU per km2                     |
+| `*9***` | Outside of lithology mapping area                        |
+| `*2***` | lithology is not Carbonate/Mixed                         |
+| `*1***` | lithology is either Carbonate or Mixed Sedimentary rocks |
+| `**9**` | Outside of CaCO3 mapping area                            |
+| `**3**` | CaCO3 is == 0                                            |
+| `**2**` | CaCO3 is \> 200                                          |
+| `**1**` | CaCO3 is \> 0 and \<= 200                                |
+| `***9*` | Outside of precipitation mapping area                    |
+| `***3*` | Annual precipitation is \< 400                           |
+| `***2*` | Annual precipitation is \> 1000                          |
+| `***1*` | Annual precipitation is \>= 400 and \<= 1000             |
+| `****3` | Grassland area, no mowing data (\<0.25ha mmu threshold)  |
+| `****2` | Grassland mowing events \> 1                             |
+| `****1` | Grassland mowing events \<= 1                            |
+|     `0` | Non-grassland area                                       |
+|   `255` | Outside area (e.g., ocean)                               |
 
 Each layer was coded numerically and resampled to match the grassland
 reference system and resolution. The operation to combine the layers
@@ -153,43 +154,43 @@ grassland code is `11111`. Other useful combos:
 
 Table of results by country:
 
-| Country | Calcereous grassland \[sq. km\] | Non-calcereous grassland \[sq. km\] | Grassland missing data \[sq. km\] |
-|:---|---:|---:|---:|
-| Austria | 1399 | 17633 | 283 |
-| Belgium | 274 | 8170 | 159 |
-| Bulgaria | 6628 | 12974 | 619 |
-| France | 30980 | 110915 | 3718 |
-| Cyprus | 0 | 0 | 1426 |
-| Czechia | 1260 | 14933 | 207 |
-| Germany | 11443 | 60370 | 2477 |
-| Denmark | 4 | 9402 | 1436 |
-| Estonia | 194 | 8780 | 620 |
-| Greece | 6102 | 14975 | 2662 |
-| Spain | 20041 | 61610 | 2553 |
-| Finland | 1513 | 34248 | 1920 |
-| Croatia | 0 | 136 | 10182 |
-| Hungary | 1146 | 16000 | 405 |
-| Ireland | 675 | 41849 | 2763 |
-| Italy | 17460 | 44552 | 3029 |
-| Lithuania | 9254 | 6124 | 282 |
-| Luxembourg | 106 | 747 | 8 |
-| Latvia | 10996 | 2236 | 243 |
-| Romania | 5874 | 50497 | 1174 |
-| Malta | NA | 0 | 0 |
-| Netherlands | 4 | 12775 | 1118 |
-| Poland | 2783 | 63438 | 1285 |
-| Portugal | 633 | 18830 | 326 |
-| Sweden | 5359 | 55829 | 3536 |
-| Slovenia | 69 | 3831 | 77 |
-| Slovakia | 2123 | 6875 | 108 |
+| Country | Calcareous grassland \[sq. km\] | Non-calcareous grassland \[sq. km\] | Grassland missing data \[sq. km\] | Calcareous grassland % total area | Calcareous grassland % grassland |
+|:---|---:|---:|---:|---:|---:|
+| Austria | 1233.3 | 16421.4 | 271.2 | 1.5 | 6.9 |
+| Belgium | 257.2 | 7104.3 | 138.5 | 0.8 | 3.4 |
+| Bulgaria | 6076.0 | 11027.5 | 557.2 | 5.5 | 34.4 |
+| France | 26088.8 | 88405.7 | 3298.9 | 4.8 | 22.1 |
+| Cyprus | 0.0 | 0.0 | 1309.8 | 0.0 | 0.0 |
+| Czechia | 1125.0 | 12854.0 | 184.8 | 1.4 | 7.9 |
+| Germany | 10056.5 | 51718.0 | 2304.2 | 2.8 | 15.6 |
+| Denmark | 3.1 | 6032.3 | 1246.4 | 0.0 | 0.0 |
+| Estonia | 178.1 | 7362.7 | 585.4 | 0.4 | 2.2 |
+| Greece | 5766.0 | 12849.1 | 2450.6 | 4.4 | 27.3 |
+| Spain | 17152.9 | 52272.7 | 2332.7 | 3.4 | 23.3 |
+| Finland | 1485.9 | 30199.7 | 1672.6 | 0.4 | 4.4 |
+| Croatia | 0.1 | 121.8 | 9163.1 | 0.0 | 0.0 |
+| Hungary | 1060.5 | 13261.1 | 377.0 | 1.1 | 7.2 |
+| Ireland | 653.7 | 41100.5 | 2712.1 | 0.9 | 1.5 |
+| Italy | 14347.2 | 34975.5 | 2586.1 | 4.8 | 27.6 |
+| Lithuania | 7639.5 | 4207.7 | 258.3 | 11.8 | 63.0 |
+| Luxembourg | 99.4 | 599.5 | 7.2 | 3.8 | 14.1 |
+| Latvia | 9856.9 | 1444.7 | 226.3 | 15.3 | 85.4 |
+| Romania | 5683.3 | 41947.6 | 1016.0 | 2.4 | 11.7 |
+| Malta | NA | 0.0 | 0.0 | NA | NA |
+| Netherlands | 4.2 | 10234.2 | 991.7 | 0.0 | 0.0 |
+| Poland | 2480.8 | 53284.2 | 1191.4 | 0.8 | 4.3 |
+| Portugal | 555.3 | 16620.4 | 294.0 | 0.6 | 3.1 |
+| Sweden | 5154.9 | 51304.5 | 3187.5 | 1.1 | 8.6 |
+| Slovenia | 66.9 | 3623.9 | 73.6 | 0.3 | 1.8 |
+| Slovakia | 1976.8 | 5965.7 | 98.4 | 4.0 | 24.6 |
 
 ### EU 27 Country level results
 
-![](out/eu_cg.png)
+![](out/eu_cg_pc.png)
 
 ### EU NUTS-2 level results
 
-![](out/nuts2_cg.png)
+![](out/nuts2_cg_pc.png)
 
 ### Limitations
 

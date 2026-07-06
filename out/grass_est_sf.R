@@ -11,27 +11,53 @@ nuts2 <- st_read("data/eu_nuts2_clip.gpkg") |> filter(ISO3_CODE %in% eu$ISO3_COD
 eu_cg_sf <- eu |> left_join(cg_eu, by = "NAME_ENGL") |>
   rowwise() |>
   mutate(
-    calc_grass = count.11111 / 10000,
-    calc_grass_intensive = count.11112 / 10000,
-    non_calc_grass = sum(c_across(!matches("11111") & !matches("9") & matches("[12]$")) / 10000, na.rm = TRUE),
-    grass_missing_data = sum(c_across(matches("9") & matches("[12]$")) / 10000, na.rm = TRUE),
-    all_grass = sum(c_across(matches("[12]$")) / 10000, na.rm = TRUE),
-    # test_grass = sum(calc_grass + non_calc_grass + grass_missing_data) - all_grass,
-    total_area = sum(c_across(matches("[123]$")) / 10000, na.rm = TRUE)
+    calcgrass = count.11111 / 10000,
+    calcgrass_himow = count.11112 / 10000,
+    calcgrass_hilivestck = count.31111 / 10000,
+    calcgrass_himow_hilivestck = count.31112 / 10000,
+    calcgrass_intensive = calcgrass_himow + calcgrass_hilivestck + calcgrass_himow_hilivestck,
+    mmucalc_grass = sum(count.11113 / 10000, na.rm = TRUE),
+    noncalc_grass = sum(c_across(!matches("11111") & !matches("9") & matches("[12]$")) / 10000, na.rm = TRUE),
+    grass_missing_data = sum(c_across(matches("9") & matches("[123]$")) / 10000, na.rm = TRUE),
+    all_grass = sum(c_across(matches("[123]$")) / 10000, na.rm = TRUE),
+    non_grass = sum(count.0 / 10000, na.rm = TRUE),
+    total_area = all_grass + non_grass
   ) |> ungroup() |>
+  mutate(
+    calcgrass_pc_totalarea = 100*calcgrass/total_area,
+    abiotic_calcgrass_pc_totalarea = 100*(calcgrass + calcgrass_intensive)/total_area,
+    all_grass_pc_totalarea = 100*all_grass/total_area,
+    calcgrass_pc_grasstotalarea = 100*calcgrass/all_grass,
+    abiotic_calcgrass_pc_grasstotalarea = 100*(calcgrass + calcgrass_intensive)/all_grass,
+    mmucalc_grass_pc_grasstotalarea = 100*mmucalc_grass/all_grass,
+    missinggrass_pc_grasstotalarea = 100*grass_missing_data/all_grass
+  ) |>
   select(-starts_with("count"))
 
 nuts2_cg_sf <- nuts2 |> left_join(cg_nuts2, by = "NUTS_ID") |>
   rowwise() |>
   mutate(
-    calc_grass = count.11111 / 10000,
-    calc_grass_intensive = count.11112 / 10000,
-    non_calc_grass = sum(c_across(!matches("11111") & !matches("9") & matches("[12]$")) / 10000, na.rm = TRUE),
-    grass_missing_data = sum(c_across(matches("9") & matches("[12]$")) / 10000, na.rm = TRUE),
-    all_grass = sum(c_across(matches("[12]$")) / 10000, na.rm = TRUE),
-    # test_grass = sum(calc_grass + non_calc_grass + grass_missing_data) - all_grass,
-    total_area = sum(c_across(matches("[123]$")) / 10000, na.rm = TRUE)
+    calcgrass = count.11111 / 10000,
+    calcgrass_himow = count.11112 / 10000,
+    calcgrass_hilivestck = count.31111 / 10000,
+    calcgrass_himow_hilivestck = count.31112 / 10000,
+    calcgrass_intensive = calcgrass_himow + calcgrass_hilivestck + calcgrass_himow_hilivestck,
+    mmucalc_grass = sum(count.11113 / 10000, na.rm = TRUE),
+    noncalc_grass = sum(c_across(!matches("11111") & !matches("9") & matches("[12]$")) / 10000, na.rm = TRUE),
+    grass_missing_data = sum(c_across(matches("9") & matches("[123]$")) / 10000, na.rm = TRUE),
+    all_grass = sum(c_across(matches("[123]$")) / 10000, na.rm = TRUE),
+    non_grass = sum(count.0 / 10000, na.rm = TRUE),
+    total_area = all_grass + non_grass
   ) |> ungroup() |>
+  mutate(
+    calcgrass_pc_totalarea = 100*calcgrass/total_area,
+    abiotic_calcgrass_pc_totalarea = 100*(calcgrass + calcgrass_intensive)/total_area,
+    all_grass_pc_totalarea = 100*all_grass/total_area,
+    calcgrass_pc_grasstotalarea = 100*calcgrass/all_grass,
+    abiotic_calcgrass_pc_grasstotalarea = 100*(calcgrass + calcgrass_intensive)/all_grass,
+    mmucalc_grass_pc_grasstotalarea = 100*mmucalc_grass/all_grass,
+    missinggrass_pc_grasstotalarea = 100*grass_missing_data/all_grass
+  ) |>
   select(-starts_with("count"))
 
 sf::st_write(eu_cg_sf, "out/grassland_eu27.gpkg", append = FALSE)
@@ -39,9 +65,46 @@ sf::st_write(nuts2_cg_sf, "out/grassland_nuts2.gpkg", append = FALSE)
 
 # summary tables
 eu_cg_tab <- eu_cg_sf |> sf::st_drop_geometry() |>
-  select(NAME_ENGL, ISO3_CODE, calc_grass, calc_grass_intensive, non_calc_grass, grass_missing_data, all_grass, total_area)
+  select(NAME_ENGL, ISO3_CODE,
+         calcgrass,
+         calcgrass_himow,
+         calcgrass_hilivestck,
+         calcgrass_himow_hilivestck,
+         calcgrass_intensive,
+         mmucalc_grass,
+         noncalc_grass,
+         grass_missing_data,
+         all_grass,
+         non_grass,
+         total_area,
+         calcgrass_pc_totalarea,
+         abiotic_calcgrass_pc_totalarea,
+         all_grass_pc_totalarea,
+         calcgrass_pc_grasstotalarea,
+         abiotic_calcgrass_pc_grasstotalarea,
+         mmucalc_grass_pc_grasstotalarea,
+         missinggrass_pc_grasstotalarea)
+
 nuts2_cg_tab <- nuts2_cg_sf |> sf::st_drop_geometry() |>
-  select(NUTS_ID, NAME_LATN, NAME_ENGL, ISO3_CODE, calc_grass, calc_grass_intensive, non_calc_grass, grass_missing_data, all_grass, total_area)
+  select(NUTS_ID, NAME_LATN, NAME_ENGL, ISO3_CODE,
+         calcgrass,
+         calcgrass_himow,
+         calcgrass_hilivestck,
+         calcgrass_himow_hilivestck,
+         calcgrass_intensive,
+         mmucalc_grass,
+         noncalc_grass,
+         grass_missing_data,
+         all_grass,
+         non_grass,
+         total_area,
+         calcgrass_pc_totalarea,
+         abiotic_calcgrass_pc_totalarea,
+         all_grass_pc_totalarea,
+         calcgrass_pc_grasstotalarea,
+         abiotic_calcgrass_pc_grasstotalarea,
+         mmucalc_grass_pc_grasstotalarea,
+         missinggrass_pc_grasstotalarea)
 
 write.csv(eu_cg_tab, "out/eu_tab.csv", row.names = FALSE)
 write.csv(nuts2_cg_tab, "out/nuts2_tab.csv", row.names = FALSE)

@@ -1,2 +1,2 @@
-"eu_totalarea","calc_grass_totalarea","intensive_calc_grass_totalarea","grass_missing_data_totalarea","all_grass_totalarea","calcgrass_pc_eutotalarea","abiotic_calcgrass_pc_eutotalarea","allgrass_pc_eutotalarea","calcgrass_pc_grasstotalarea","missinggrass_pc_grasstotalarea"
-4124296.9175,136320.547,33772.748,42617.0834,856665.7703,3.30530390335312,4.12417676036536,20.7711953682345,15.9129209694303,4.97476202242512
+"eu_totalarea","calcgrass_totalarea","calcgrass_intensive_totalarea","grass_missing_data_totalarea","allgrass_totalarea","calcgrass_pc_eutotalarea","abiotic_calcgrass_pc_eutotalarea","allgrass_pc_eutotalarea","calcgrass_pc_grasstotalarea","abiotic_calcgrass_pc_grasstotalarea","missinggrass_pc_grasstotalarea"
+4124296.9175,119002.1347,33019.9122,38534.8555,736378.3754,2.88539203361078,3.68601121454054,17.8546402000166,16.1604602573179,20.6445561111734,5.23302378061658

@@ -84,24 +84,26 @@ European Environment Agency, “Impervious Built-up 2018 (raster 10 m), Europe, 
 
 |   Code | Explanation                                              |
 |-------:|:---------------------------------------------------------|
-|`90000` | Outside of livestock density mapping area                |
-|`30000` | Livestock density is \>25 per km2                        |
-|`10000` | Livestock density is 0-25 LU per km2                     |
-| `9000` | Outside of lithology mapping area                        |
-| `2000` | lithology is not Carbonate/Mixed                         |
-| `1000` | lithology is either Carbonate or Mixed Sedimentary rocks |
-|  `900` | Outside of CaCO3 mapping area                            |
-|  `300` | CaCO3 is == 0                                            |
-|  `200` | CaCO3 is \> 200                                          |
-|  `100` | CaCO3 is \> 0 and \<= 200                                |
-|   `90` | Outside of precipitation mapping area                    |
-|   `30` | Annual precipitation is \< 400                           |
-|   `20` | Annual precipitation is \> 1000                          |
-|   `10` | Annual precipitation is \>= 400 and \<= 1000             |
-|    `5` | Outside of grassland mapping area (e.g. water)           |
-|    `3` | Non-grassland                                            |
-|    `2` | Grassland mowing events \> 1                             |
-|    `1` | Grassland mowing events \<= 1                            |
+|`9****` | Outside of livestock density mapping area                |
+|`3****` | Livestock density is \>25 per km2                        |
+|`1****` | Livestock density is 0-25 LU per km2                     |
+|`*9***` | Outside of lithology mapping area                        |
+|`*2***` | lithology is not Carbonate/Mixed                         |
+|`*1***` | lithology is either Carbonate or Mixed Sedimentary rocks |
+|`**9**` | Outside of CaCO3 mapping area                            |
+|`**3**` | CaCO3 is == 0                                            |
+|`**2**` | CaCO3 is \> 200                                          |
+|`**1**` | CaCO3 is \> 0 and \<= 200                                |
+|`***9*` | Outside of precipitation mapping area                    |
+|`***3*` | Annual precipitation is \< 400                           |
+|`***2*` | Annual precipitation is \> 1000                          |
+|`***1*` | Annual precipitation is \>= 400 and \<= 1000             |
+|`****3` | Grassland area, no mowing data (<0.25ha mmu threshold)   |
+|`****2` | Grassland mowing events \> 1                             |
+|`****1` | Grassland mowing events \<= 1                            |
+|    `0` | Non-grassland area                                       |
+|  `255` | Outside area (e.g., ocean)                               |
+
 
 Each layer was coded numerically and resampled to match the grassland reference system and resolution. The operation to combine the layers was:
 
@@ -122,22 +124,24 @@ Table of results by country:
 ```{r, echo=FALSE, warning=FALSE, message = FALSE}
 eu_cg <- read.csv("out/eu_tab.csv") |>
   dplyr::rename(
-    `Calcereous grassland [sq. km]` = calc_grass,
-    `Non-calcereous grassland [sq. km]`= non_calc_grass,
-    `Grassland missing data [sq. km]` = grass_missing_data
+    `Calcareous grassland [sq. km]` = calcgrass,
+    `Non-calcareous grassland [sq. km]`= noncalc_grass,
+    `Grassland missing data [sq. km]` = grass_missing_data,
+    `Calcareous grassland % total area` = calcgrass_pc_totalarea,
+    `Calcareous grassland % grassland` = calcgrass_pc_grasstotalarea
   )
 
-knitr::kable(eu_cg |> dplyr::select(NAME_ENGL,`Calcereous grassland [sq. km]`,`Non-calcereous grassland [sq. km]`,`Grassland missing data [sq. km]`) |> dplyr::rename(Country = NAME_ENGL), digits = 0)
+knitr::kable(eu_cg |> dplyr::select(NAME_ENGL,`Calcareous grassland [sq. km]`,`Non-calcareous grassland [sq. km]`,`Grassland missing data [sq. km]`, `Calcareous grassland % total area`, `Calcareous grassland % grassland`) |> dplyr::rename(Country = NAME_ENGL), digits = 1)
 
 ```
 
 ### EU 27 Country level results
 
-![](out/eu_cg.png)
+![](out/eu_cg_pc.png)
 
 ### EU NUTS-2 level results
 
-![](out/nuts2_cg.png)
+![](out/nuts2_cg_pc.png)
 
 ### Limitations
 

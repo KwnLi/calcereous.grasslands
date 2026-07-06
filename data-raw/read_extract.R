@@ -1,8 +1,8 @@
 library(tidyverse)
 eu_grid <- sf::st_read("data/eu_grid.gpkg") |>
   mutate(tile = gsub(".*(E\\d+N\\d+).*", "\\1", CellCode))
-extractdir <- "data-raw/extract"
-extracttilelogdir <- "data-raw/extract/tilelog"
+extractdir <- "data-raw/extractmask"
+extracttilelogdir <- "data-raw/extractmask/tilelog"
 eu_nuts2 <- st_read("data/eu_nuts2.gpkg") |> st_drop_geometry()
 
 extractfiles <- list.files(extractdir, pattern = "csv$")
