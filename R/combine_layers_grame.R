@@ -1,6 +1,6 @@
 #' Combine component layers to make calcereous grassland output
 #'
-#' @param grass.lyr grassland layer
+#' @param grame.lyr grassland mowing events layer
 #' @param prec.lyr precip layer
 #' @param caco3.lyr caco3 layer
 #' @param litho.lyr lithography layer
