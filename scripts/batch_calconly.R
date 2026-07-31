@@ -22,7 +22,9 @@ log_entry <- data.frame(tile = tile.g, error = NA)
 tryCatch({
   calcgrass_only <- terra::ifel(grass.all==11111, 1, terra::ifel(grass.all <= 255, grass.all, 0))
   terra::NAflag(calcgrass_only) <- 255
-  terra::writeRaster(calcgrass_only, file.path(outdir, paste0("calcgrass_",tile.g,".tif")))
+  fname <- file.path(outdir, paste0("calcgrass_",tile.g,".tif"))
+  print(fname)
+  terra::writeRaster(calcgrass_only, filename = fname)
   }, error = function(e) {
     log_entry$error <<- e$message
     }
