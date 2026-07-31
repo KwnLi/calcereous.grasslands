@@ -14,7 +14,7 @@ cat("Tile ID is: ", tile.g, "\n")
 print(grass.file.g)
 
 ##### conduct the geoprocessing #####
-grass.all <- terra::rast(grass.file.g)
+grass.all <- terra::rast(file.path(indir,grass.file.g))
 
 # keep track of tiles
 log_entry <- data.frame(tile = tile.g, error = NA)
