@@ -5,7 +5,7 @@ suppressMessages(library(terra))
 indir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/maskgrass/"
 outdir <- "/storage/home/kbl5733/gstorage/usda/Data/Calcereous/out/calcgrass"
 
-grass.files <- list.files(indir, pattern = ".zip$")
+grass.files <- list.files(indir, pattern = ".tif$")
 grass.file.g <- grass.files[g]
 tile.g <- gsub(".*(E\\d+N\\d+).*", "\\1", grass.file.g)
 
