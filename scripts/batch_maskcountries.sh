@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH --job-name=maskcountry
 #SBATCH --account=open
-#SBATCH --partition=standard
+#SBATCH --partition=himem
 #SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskcountry-%A.out
 #SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskcountry-%A.err
 #SBATCH --time=24:00:00
-#SBATCH --mem=8G
+#SBATCH --mem=20G
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
