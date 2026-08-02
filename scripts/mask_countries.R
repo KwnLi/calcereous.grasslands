@@ -13,8 +13,6 @@ euclip <- sf::st_read("data/eu_clip.gpkg")
 
 country.g <- euclip$NAME_ENGL[g]
 
-print(paste("Clipping", country.g))
-
 # country.g.buf <- sf::st_buffer(euclip[g,], 1000)   # buffer by 1km
 country.g.buf <- euclip[g,]   # no buffer
 grid.g <- grideu[country.g.buf,]  # intersecting buffers
@@ -30,4 +28,7 @@ sprc.g <- sprc(rast.g)
 countrymerge <- terra::merge(sprc.g)
 
 fname <- paste0(country.g, "_calcgrass.tif")
+
+print(paste("Clipping", country.g, "to", file.path(outdir, fname)))
+
 countrymask <- terra::mask(countrymerge, country.g.buf, filename = file.path(outdir, fname))

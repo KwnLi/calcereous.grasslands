@@ -2,8 +2,7 @@
 #SBATCH --job-name=maskcountry
 #SBATCH --account=open
 #SBATCH --partition=himem
-#SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskcountry-%A.out
-#SBATCH --error=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskcountry-%A.err
+#SBATCH --output=/storage/home/kbl5733/work/github/calcereous.grasslands/logs/maskcountry-%A_%a.log
 #SBATCH --time=24:00:00
 #SBATCH --mem=20G
 #SBATCH --nodes=1
