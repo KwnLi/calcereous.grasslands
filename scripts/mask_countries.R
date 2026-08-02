@@ -15,7 +15,8 @@ country.g <- euclip$NAME_ENGL[g]
 
 print(paste("Clipping", country.g))
 
-country.g.buf <- sf::st_buffer(euclip[g,], 1000)   # buffer by 1km
+# country.g.buf <- sf::st_buffer(euclip[g,], 1000)   # buffer by 1km
+country.g.buf <- euclip[g,]   # no buffer
 grid.g <- grideu[country.g.buf,]  # intersecting buffers
 tiles.g <-  gsub(".*(E\\d+N\\d+).*", "\\1", grid.g$CellCode)  # cell codes
 calcgrass.g <- paste0("calcgrass_",tiles.g,".tif")
