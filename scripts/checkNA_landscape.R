@@ -24,6 +24,6 @@ print(terra::freq(calcgrass.nobufn0))       # full table of distinct values + co
 
 print("Check trim result:")
 calcgrass.nobufn0 <- terra::trim(calcgrass.nobufn0)
-print(terra::ncell(calcgrass.bufn0))
-print(terra::minmax(calcgrass.bufn0))     # look for an extreme min or max
-print(terra::freq(calcgrass.bufn0))       # full table of distinct values + counts
+print(terra::ncell(calcgrass.nobufn0))
+print(terra::minmax(calcgrass.nobufn0))     # look for an extreme min or max
+print(terra::freq(calcgrass.nobufn0))       # full table of distinct values + counts
