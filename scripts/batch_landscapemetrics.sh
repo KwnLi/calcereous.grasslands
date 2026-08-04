@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --array=1-27%5                ### Array index
+#SBATCH --array=1                    ### Array index
 
 module load anaconda
 source activate r-geo
